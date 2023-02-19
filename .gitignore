@@ -1,2 +1,6 @@
 *.ini
 *.txt
+app
+build
+dist
+.egg

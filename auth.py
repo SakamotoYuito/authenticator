@@ -39,6 +39,7 @@ def get_key(password):
     key = oathtool.generate_otp(password)
     print(key)
     pyperclip.copy(key)
+    return key
 
 def main():
     """
