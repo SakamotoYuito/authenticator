@@ -1,13 +1,13 @@
-## 多要素認証の 6 桁のパスワードを取得するプログラム
+## 多要素認証の 6 桁のパスワードを取得する app 　 authapp.app
 
-1. auth.ini を作成し、中身を以下のようにする
+1. 必要なモジュール（pip install でダウンロードしてください）
 
-   ```
-    [PASSWORD]
-    pass = 自身の事前共有鍵
-   ```
+   - rumps
+   - oathtool
+   - yperclip
+   - py2app
 
-2. 実行
+2. ビルド
    ```
-   $ make test
+    % python setup.py py2app
    ```

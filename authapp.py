@@ -17,6 +17,10 @@ class Authenticator(rumps.App):
     super(Authenticator, self).__init__(name, icon="icon.png", quit_button='多要素認証を終了')
     self.config_ini = configparser.ConfigParser()
     self.config_ini_file = 'auth.ini'
+  
+  def write_config(self):
+    with open(self.config_ini_file, "w") as f:
+        self.config_ini.write(f)
 
   @rumps.clicked("コードを取得")
   def copy_code(self, _):
@@ -29,13 +33,11 @@ class Authenticator(rumps.App):
       code = self.config_ini.get('PASSWORD', 'pass')
     except:
       self.config_ini["PASSWORD"] = {"pass": ""}
-      with open(self.config_ini_file, "w") as f:
-        self.config_ini.write(f)
+      self.write_config()
       rumps.alert("事前共有鍵を設定していません")
       sys.exit(0)
 
     if type(code) != str or len(code) != 16:
-      # rumps.notification("エラー", "事前共有鍵を設定していません", "")
       rumps.alert("事前共有鍵を設定していません")
       sys.exit(0)
 
@@ -47,17 +49,16 @@ class Authenticator(rumps.App):
   def set_password(self, _):
     response = rumps.Window('16桁の事前共有鍵', dimensions=(200, 20)).run()
     if response.clicked:
-      print(response.text)
       try:
         self.config_ini.read(self.config_ini_file, encoding='utf-8')
-        code = self.config_ini.get('PASSWORD', 'pass')
+        self.config_ini.get('PASSWORD', 'pass')
       except:
         self.config_ini["PASSWORD"] = {"pass": ""}
-        with open(self.config_ini_file, "w") as f:
-          self.config_ini.write(f)
+        self.write_config()
+
       self.config_ini["PASSWORD"].update({"pass": response.text})
-      with open(self.config_ini_file, 'w') as f:
-        self.config_ini.write(f)
+      self.write_config()
+      
 
 
 if __name__ == "__main__":
