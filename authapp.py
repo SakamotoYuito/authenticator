@@ -24,10 +24,6 @@ class Authenticator(rumps.App):
 
   @rumps.clicked("コードを取得")
   def copy_code(self, _):
-    if not os.path.exists(self.config_ini_file):
-      rumps.notification("エラー", "事前共有鍵を設定していません", "")
-      sys.exit(0)
-
     try:
       self.config_ini.read(self.config_ini_file, encoding='utf-8')
       code = self.config_ini.get('PASSWORD', 'pass')
