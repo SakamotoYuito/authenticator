@@ -4,7 +4,7 @@
 
    - rumps
    - oathtool
-   - yperclip
+   - pyperclip
    - py2app
 
 2. ビルド
